@@ -222,8 +222,14 @@
           </pre>
           <pre data-id="code-animation">
             <code class="hljs language-text" data-trim data-line-numbers>
-            /* TODO: revert */ (async () => {
-              const TM_SELECTED_TEXT_DATA = await ${TM_SELECTED_TEXT};
+            /* TODO: revert */ (() => {
+              const TM_SELECTED_TEXT_DATA = ${TM_SELECTED_TEXT};
+              if (TM_SELECTED_TEXT_DATA.then) {
+                TM_SELECTED_TEXT_DATA.then((data) => {
+                  console.log(`${TM_FILENAME}:${TM_LINE_NUMBER}:${TM_SELECTED_TEXT/`/\`/g}:Promise: `, data);
+                });
+                return TM_SELECTED_TEXT_DATA;
+              }
               console.log(`${TM_FILENAME}:${TM_LINE_NUMBER}:${TM_SELECTED_TEXT/`/\`/g}: `, TM_SELECTED_TEXT_DATA);
               return TM_SELECTED_TEXT_DATA;
             })(); /* TM_SELECTED_TEXT: getInfo(`test`) */
